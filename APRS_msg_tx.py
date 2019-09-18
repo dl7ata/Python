@@ -13,9 +13,7 @@ import random
 from time import strftime
 
 meinemsgid = "DL7ATA"
-passwd="21678"
-#meinemsgid="DB0TGO-15"
-#passwd="16571"
+passwd="****"
 
 # Senden
 def senden(call,msg):
