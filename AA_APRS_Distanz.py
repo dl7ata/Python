@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-# 	FUNKTIoNSTÜCHTIG
-# Mitlesen des APRSIS-Traffics von $filter
+# 	
+# Read APRSIS-Traffic using $filter
+# needs:   aprslib & geopy
 
 import socket
 import sys
