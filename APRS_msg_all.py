@@ -7,15 +7,13 @@ import aprslib
 from time import strftime
 
 meinemsgid="DL7ATA"
-ata_passwd="21678"
+ata_passwd="****"
 call="DB0TGO-15"
-#passwd="16571"
 passwd="-1"
 
 a_format="message"
 aprs_host="129.15.108.111" #FIRST
 aprs_port=20158 #1000km
-#aprs_port=20157 #100km
 
 # ack senden
 def ack_senden(absender,msgnummer):
@@ -50,12 +48,6 @@ def callback(packet):
         print ('Wohl ein <ack> ... ?')
         print(decodiert['raw'])
         pass
-
-#    try:
-#        if decodiert['format']=="wx":
-#            print(ctime(), "Von: ", decodiert['from'], " wx: ", decodiert['weather']) #, " pres ", decodiert['pressure'], " temp ", decodiert['temperature'])
-#    except (aprslib.ParseError, aprslib.UnknownFormat) as exp:
-#        pass
 
 def main():
     while True:
