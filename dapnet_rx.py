@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+# Mitlesen Dapnet via Hamnet
+# Bestandteil ist die Datei  rubrice.py  (s. Import)
+# 02.10.2019    DL7ATA
+
 import socket
 import sys
 import rubrice
