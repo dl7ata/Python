@@ -37,13 +37,12 @@ def Nachricht(RxString, Counter):
     try:
         typ_RIC = rubrice.dic_RIC[str(RIC)]
         if RIC == 4520 or RIC == 4512:
-            nachricht_enc = ncode(nachricht[2:])
-            nachricht = nachricht_enc
-        print(strftime("%H:%M:%S"), ":", Counter, " Type/RIC:", str(MsgType),
+            nachricht = ncode(nachricht[2:])
+        print(strftime("%H:%M:%S"), Counter,
               GREEN, typ_RIC.ljust(18, ' '), ENDC, "\t", nachricht)
     except:
          typ_RIC =  str(RIC) + " RIC?"
-         print(strftime("%H:%M:%S"), LGREY, Counter, typ_RIC.ljust(18, ' '), nachricht, ENDC)    # , "\r\b")
+         print(strftime("%H:%M:%S"), LGREY, Counter, typ_RIC.ljust(18, ' '), nachricht, ENDC)
 
 def Auswertung(RxString, Counter):
     # print(RxString)
