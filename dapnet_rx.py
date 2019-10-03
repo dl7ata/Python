@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Mitlesen Dapnet via Hamnet
+# Mitlesen Dapnet via Hamnet, encoder der mit "Caesar cipher" codierten Rubriknamen 
 # Bestandteil ist die Datei  rubrice.py  (s. Import)
 # 02.10.2019    DL7ATA
 
