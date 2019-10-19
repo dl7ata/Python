@@ -97,7 +97,8 @@ for i in data[:]:
 
         # WAV-Datei für svxlink erstellen
         print(time.strftime('%H:%M:%S'), " Erzeuge WAV")
-        spool_pfad = '/var/spool/svxlink/weatherinfo/' + call + "." + Nr + "."
+        svx_spool_pfad = '/var/spool/svxlink/weatherinfo/'
+        spool_pfad = svx_spool_pfad + call + "." + Nr + "."
         msg_text = 'Amtliche Warnung vom Deutschen Wetterdienst ' \
                    + msg_sammler
         try:
@@ -113,9 +114,9 @@ for i in data[:]:
             print(time.strftime('%H:%M:%S'), nach + " erzeugt und kopiere.")
 
             # kopieren nach svx-spool als 2m
-            nach = '/var/spool/svxlink/Mowas/' + call + "-2m." + Nr + ".wav"
+            nach = svx_spool_pfad + call + "-2m." + Nr + ".wav"
             # shutil.copy2(von, nach)
-            nach = '/var/spool/svxlink/Mowas/' + call + "-2m." + Nr + ".info"
+            nach = svx_spool_pfad + call + "-2m." + Nr + ".info"
             # shutil.copy2(dateiname, nach)
 
         except(subprocess.SubprocessError) as e:
@@ -124,15 +125,13 @@ for i in data[:]:
                 sys.exit(1)
     z += 1
 
+    ausgabe = "Meldung " + Nr+  meld_datum + meld_zeit + "\tGültig ab" + \
+              gueltig_ab + "bis" + gueltig_bis + \
+              "\n" + area.rstrip() + str(geo_Code) + area51 + headline + "\n"
     if kurz != 0:
-        print("Meldung", Nr, meld_datum, meld_zeit, "\nGültig ab:",
-              gueltig_ab, "\nGültig bis:", gueltig_bis,
-              "\n", area, area51, "\t", headline, "\n",
-              f_gelb, Meldung, f_aus, "\n")
+        print(ausgabe, f_gelb, Meldung, f_aus, "\n")
     else:
-        print("Meldung ", Nr, meld_datum, meld_zeit, "\tGültig ab",
-              gueltig_ab, "bis", gueltig_bis,
-              "\n", area.rstrip(), str(geo_Code), area51, headline, "\n")
+        print(ausgabe)
 
 if kurz != 1:
     print(z, "Meldungen vorhanden.\n",
