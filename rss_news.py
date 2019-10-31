@@ -21,11 +21,25 @@ def dapnet(zu_senden):
         + "\'" + zu_senden + "\'"
     # cmd = bash_sc + 'DL7ATA ' + \
     #    "\"" +  zu_senden + "\""
+    # print(cmd, len(zu_senden), "\n\n")
     os.system(cmd)
-    # cmd = bash_sc + 'DL2HAM ' + \
-    #   "\"! " +  title + "\""
-    # os.system(cmd)
     time.sleep(5)
+
+def zeilenumbruch(s, ll=71):
+    if not len(s) > 71:
+        dapnet(s)
+        return
+    aus = ""
+    while len(s) > ll:
+        p = ll-1
+        while p > 0 and s[p] not in " ":
+            p -= 1
+        if p == 0:
+            p = ll
+        aus += s[:p+1]
+        dapnet(aus)
+        s = s[p+1:]
+        dapnet(s[:p+1])
 
 for i in url:
 
@@ -40,7 +54,6 @@ for i in url:
 
         hash_wert = hashlib.md5(title.encode())
         unikat = hash_wert.hexdigest()
-        # print(unikat)
 
         # prüfen ob Meldung schon vorhanden
         datei = text_Pfad + str(unikat)
@@ -53,9 +66,7 @@ for i in url:
                     output.write(title)
                     output.close()
             print(time.strftime('%H:%M:%S'), title, "\n")
-            dapnet(title[:73])
-            if len(title) > 73:
-                dapnet(title[71:])
+            zeilenumbruch(title, 71)
 
 # löschen alter Meldungen (> 2 Tage)
 cmd = 'find /tmp/aprs -name \'rss.*\' -mtime +2 -exec rm {} \\;'
