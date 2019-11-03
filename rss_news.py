@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # RSS-Feeds von $url einlesen und via DAPNET-http verteilen
+# 03.11.2019	Einfügen alle 2 Wochen BBC-url wechselweise
 # 30.10.2019    DL7ATA
 
 import feedparser
-import time
+import time, datetime
 import hashlib
 from pathlib import Path
 import os
 
-url = ['https://www.tagesspiegel.de/contentexport/feed/weltspiegel',
+url1 = ['https://www.tagesspiegel.de/contentexport/feed/weltspiegel',
+       'https://www.tagesspiegel.de/contentexport/feed/berlin',
        'http://www.spiegel.de/schlagzeilen/tops/index.rss']
+url2 = ['http://feeds.bbci.co.uk/news/world/rss.xml']
+
 text_Pfad = "/tmp/aprs/rss."
 
 counter = 0
@@ -21,7 +25,6 @@ def dapnet(zu_senden):
         + "\'" + zu_senden + "\'"
     # cmd = bash_sc + 'DL7ATA ' + \
     #    "\"" +  zu_senden + "\""
-    # print(cmd, len(zu_senden), "\n\n")
     os.system(cmd)
     time.sleep(5)
 
@@ -37,9 +40,15 @@ def zeilenumbruch(s, ll=71):
         if p == 0:
             p = ll
         aus += s[:p+1]
-        dapnet(aus)
         s = s[p+1:]
         dapnet(s[:p+1])
+        dapnet(aus)
+
+# An ungeraden Wochen url1 nehmen, an geraden Wochen url2
+if datetime.date.today().isocalendar()[1] % 2:
+    url = url1
+else:
+    url = url2
 
 for i in url:
 
@@ -61,15 +70,15 @@ for i in url:
 
         # Wenn Meldung noch nicht vorhanden
         if not check_File.is_file():
-            title = title.replace("\"", "")
+            print(time.strftime('%H:%M:%S'), title, "\n")
+            title = title.replace("\"", "").replace("\'", "")
             with open(datei, 'w+') as output:
                     output.write(title)
                     output.close()
-            print(time.strftime('%H:%M:%S'), title, "\n")
             zeilenumbruch(title, 71)
 
 # löschen alter Meldungen (> 2 Tage)
-cmd = 'find /tmp/aprs -name \'rss.*\' -mtime +2 -exec rm {} \\;'
+cmd = 'find /tmp/aprs -name \'rss.*\' -mtime +4 -exec rm {} \\;'
 os.system(cmd)
 
 print(time.strftime('%H:%M:%S'), counter, "Nachrichten.")
