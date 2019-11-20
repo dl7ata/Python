@@ -5,7 +5,6 @@
 # 01.03.2019 V1.0 DL7ATA
 #
 # Aufruf mit: <./APRS_msg_tx.py EMPFÄNGER-CALL "NACHRICHT">
-# ACK wird automat. ergänzt
 #
 import sys
 import aprslib
@@ -17,9 +16,7 @@ passwd="****"
 
 # Senden
 def senden(call,msg):
-    # if len(call) < 6:
-    #    call = call + " "*(6 - len(call)) # pad with spaces
-
+    
     # ZIEL-CALL mit 9 Stellen indizieren und durch Zielcall ersetzten
     zielcall = [" "," "," "," "," "," "," "," "," "]
     for i in range(0,len(call)):
@@ -28,10 +25,10 @@ def senden(call,msg):
     # Zusammensetzen der MSg
     ackNo = random.randrange(1,999)
     beacon_ack_buff =  ":" + ''.join(zielcall) + ":" + msg + " {" + str(ackNo)
-    command = meinemsgid + ">APR7TA,TCPIP:" + beacon_ack_buff #+ "\""
+    command = meinemsgid + ">APR7TA,TCPIP:" + beacon_ack_buff
     AIS = aprslib.IS(meinemsgid, passwd, port=14580)
     AIS.connect()
-    # senden ack-message
+    # senden message
     AIS.sendall(command)
     print("Msg -> " + command + "\nan " + call + " um " + strftime("%H:%M:%S") +  " gesendet.")
     return
