@@ -10,11 +10,11 @@ import time
 import aprslib
 from geopy import distance
 
-filter = "m/100"    # "t/unq"   # TGO/DO5JRR/DB0AVH/DL2HAM\n" sys.argv[1]    #
+filter = "m/100"
 aprsis_server="euro.aprs2.net"
 port=14580
 user = "DB0TGO-15"
-home = (52.5692293, 13.2312943)
+home = (52.2, 13.1)
 
 # APRS-Server IP auflösen
 print("IP auflösen von " + aprsis_server)

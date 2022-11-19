@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 #
 # PARS-Fehler abfangen  29.10.2019
-# einlesen dwd.unwetter und mowas - JSON-Strings
+# Einlesen dwd.unwetter und mowas - JSON-Strings (s. url)
+#
 # 19.10.2019    DL7ATA
 
 import json

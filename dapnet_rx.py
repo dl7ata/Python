@@ -10,7 +10,7 @@ import sys
 import rubrice
 from time import strftime
 
-server = "44.225.164.27"
+server = "<IP>"
 port = 43434
 
 Counter = 0
